@@ -24,14 +24,28 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  List<Icon> score = [];
+  List<Icon> score = [
+    Icon(
+      Icons.check,
+      color: Colors.green,
+    )
+  ];
 
   TextButton buildButton(String name, Color color) {
     return TextButton(
       style: TextButton.styleFrom(
         backgroundColor: color,
       ),
-      onPressed: null,
+      onPressed: () {
+        setState(() {
+          score.add(
+            Icon(
+                Icons.check,
+                color: Colors.green
+            ),
+          );
+        });
+      },
       child: Text(
         name,
         style: TextStyle(
