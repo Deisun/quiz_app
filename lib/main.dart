@@ -24,12 +24,7 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  List<Icon> score = [
-    Icon(
-      Icons.check,
-      color: Colors.green,
-    )
-  ];
+  List<Icon> score = [];
 
   TextButton buildButton(String name, Color color) {
     return TextButton(
