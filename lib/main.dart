@@ -13,7 +13,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Quiz(),
+      home: Scaffold(
+        backgroundColor: Colors.grey.shade900,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Quiz(),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -25,31 +33,13 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   List<Icon> score = [];
+  List<String> questions = [
+    'You can lead a cow downstairs but not upstairs',
+    'Approximately one quarter of human bones are in the feet',
+    'A Slug\'s blood is green'
+  ];
 
-  TextButton buildButton(String name, Color color) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        backgroundColor: color,
-      ),
-      onPressed: () {
-        setState(() {
-          score.add(
-            Icon(
-                Icons.check,
-                color: Colors.green
-            ),
-          );
-        });
-      },
-      child: Text(
-        name,
-        style: TextStyle(
-          fontSize: 20.0,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
+  int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -59,18 +49,60 @@ class _QuizState extends State<Quiz> {
       children: <Widget>[
         Expanded(
           flex: 5,
-          child: Text('Questions go here'),
-        ),
-        Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: buildButton('True', Colors.green),
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                questions[questionNumber],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
         ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
-            child: buildButton('False', Colors.red),
+            child: FlatButton(
+              textColor: Colors.white,
+              color: Colors.green,
+              child: Text(
+                'True',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  questionNumber++;
+                });
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: FlatButton(
+              textColor: Colors.white,
+              color: Colors.red,
+              child: Text(
+                'False',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  questionNumber++;
+                });
+              },
+            ),
           ),
         ),
         Row(
