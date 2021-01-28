@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
 
-
 QuizBrain quizBrain = QuizBrain();
 
 void main() {
@@ -36,9 +35,27 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  List<Icon> score = [];
+  List<Icon> scoreKeeper = [];
 
+  void checkAnswer(bool userAnswer) {
+    bool correctAnswer = quizBrain.getQuestionAnswer();
 
+    setState(() {
+      if (userAnswer == correctAnswer) {
+        scoreKeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        scoreKeeper.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
+
+      quizBrain.nextQuestion();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,17 +93,7 @@ class _QuizState extends State<Quiz> {
                 ),
               ),
               onPressed: () {
-                bool answer = quizBrain.getQuestionAnswer();
-
-                if (answer == true) {
-
-                } else {
-
-                }
-
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -105,23 +112,13 @@ class _QuizState extends State<Quiz> {
                 ),
               ),
               onPressed: () {
-                bool answer = quizBrain.getQuestionAnswer();
-
-                if (answer == false) {
-
-                } else {
-
-                }
-
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
+                checkAnswer(false);
               },
             ),
           ),
         ),
         Row(
-          children: score,
+          children: scoreKeeper,
         )
       ],
     );
